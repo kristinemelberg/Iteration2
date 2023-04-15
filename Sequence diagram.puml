@@ -1,0 +1,38 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+actor   Citizen
+activate Citizen
+Citizen -> Sundhed.dk: Login
+activate Sundhed.dk
+Sundhed.dk -> MitID: Verify username
+activate MitID
+MitID --> Citizen: Login with MitID
+Citizen -> MitID: 2 factor authentication
+MitID --> Citizen: Login approved
+MitID --> Sundhed.dk: Authentication response
+deactivate MitID
+Sundhed.dk -> Sundhed.dk: redirect
+Sundhed.dk --> Citizen: Display medicinkortet
+Citizen ->> Sundhed.dk: Request prescription
+Sundhed.dk -> GP_system: Prescription requested
+activate GP_system
+actor   GP
+GP_system ->> GP: Notification
+activate GP
+alt Presription approved
+GP ->> GP_system: GP approves
+GP_system --> Sundhed.dk: register: "Approved"
+Sundhed.dk --> Citizen: Prescription approved
+else Prescription rejected
+GP ->> GP_system: GP rejects
+deactivate GP
+GP_system --> Sundhed.dk: register: "Rejected"
+deactivate GP_system
+Sundhed.dk --> Citizen: Rejection message
+deactivate Citizen
+deactivate Sundhed.dk
+end
+
+@enduml

@@ -1,0 +1,71 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class User {
+Name: string
+User-ID: int
+}
+Healthcare_worker -up-|> User
+class Healthcare_worker {
+Profession: string
+}
+class Patient {
+CPR: int
+Assigned healthcare worker: string
+}
+Patient -up-|> User
+class GP_secretary {
+Department: string
+}
+GP_secretary -up-|> User
+class System {
+Name: string
+User: string
+Functions: string
+{method} Ui_MenuWindow
+MainWindow()
+}
+System "1"-down-"1..*" User :contains
+class Maintenance {
+Software: string
+Hours: int
+}
+System "1"-right-"1..*" Maintenance :demands
+class "IT-employee" {
+Name: string
+User-ID: int
+}
+"IT-employee" -- "1..*" Maintenance
+
+class Messages {
+Inbox: string
+Outbox: string
+}
+class "Book consultation" {
+Date: int
+}
+class "Gather data" {
+Notes: string
+}
+class "Register" {
+Name: string
+CPR: int
+{method} Ui_RegisterWindow
+}
+class "Login" {
+MitID: string
+NemID: string
+{method} Ui_LoginWindow
+}
+
+
+System -- Messages
+System -- "Book consultation"
+System -- "Gather data"
+Healthcare_worker -- "Register"
+System -- "Login"
+
+
+
+
+@enduml
