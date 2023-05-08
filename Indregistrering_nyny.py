@@ -123,7 +123,7 @@ class Ui_RegisterWindow(object):
         # The second condition states, that the input should be letters, and that the text3 box shall accept either, Yes, yes, No or no.
         condition2 = text3.isalpha() and (text3 == 'Yes' or text3 == 'No' or text3 == 'yes' or text3 == 'no' )
         # Condition 3 states that the number should be numbers between 30 and 200.
-        condition3 = text2.isdigit() and 30 < int((text2)) < 200
+        condition3 = text2.replace(',', '').replace('.', '').isdigit() and 30.0 < float(text2) < 200.0
 
 # We make an if statement that makes the program say "Registration complete" when all three conditions are fulfilled
         # and that the program should tell which input is not correct if the conditions is not fulfilled.
